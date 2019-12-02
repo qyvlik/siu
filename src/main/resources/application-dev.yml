@@ -25,4 +25,4 @@ spring:
 logging:
   level:
     nl.basjes.parse.useragent: ERROR
-    io.github.qyvlik.siuone.modules.view: DEBUG
+#    io.github.qyvlik.siuone.modules.view: DEBUG

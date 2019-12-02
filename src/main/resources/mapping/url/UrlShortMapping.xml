@@ -13,6 +13,12 @@
     </sql>
 
     <sql id="condition">
+        <if test="state != null">
+            AND `state` = #{state}
+        </if>
+        <if test="originUrlId != null">
+            AND `origin_url_id` = #{originUrlId}
+        </if>
         <if test="beginTime != null">
             AND create_time &gt;= #{beginTime}
         </if>
@@ -26,6 +32,13 @@
         <include refid="columns"/>
         FROM tb_url_short
         WHERE `id` = #{id}
+    </select>
+
+    <select id="getIdByOriginUrlId" resultType="Long">
+        SELECT
+        MAX(id)
+        FROM tb_url_short
+        WHERE `origin_url_id` = #{originUrlId}
     </select>
 
     <select id="getOriginUrlId" resultType="Long">

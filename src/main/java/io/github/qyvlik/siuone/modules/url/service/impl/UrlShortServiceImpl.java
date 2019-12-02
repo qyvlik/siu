@@ -34,4 +34,9 @@ public class UrlShortServiceImpl extends CrudService<UrlShort, UrlShortMapping> 
     public UrlShort get(Long id) {
         return super.get(id);
     }
+
+    @Override
+    public Long getIdByOriginUrlId(Long originUrlId) {
+        return this.mapping.getIdByOriginUrlId(originUrlId);
+    }
 }

@@ -10,5 +10,7 @@ public interface UrlShortService {
 
     UrlShort get(Long id);
 
+    Long getIdByOriginUrlId(Long originUrlId);
+
     Long insert(UrlShort urlShort);
 }

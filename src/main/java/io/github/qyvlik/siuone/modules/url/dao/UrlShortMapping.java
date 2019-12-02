@@ -10,4 +10,6 @@ public interface UrlShortMapping extends CrudMapping<UrlShort> {
 
     Long getOriginUrlId(@Param("id") Long id);
 
+    Long getIdByOriginUrlId(@Param("originUrlId") Long originUrlId);
+
 }
