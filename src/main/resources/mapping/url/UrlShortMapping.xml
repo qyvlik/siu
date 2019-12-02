@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.qyvlik.siuone.modules.url.dao.UrlShortMapping">
+
+    <sql id="columns">
+        `id`,
+        `short_url` AS shortUrl,
+        `origin_url_id` AS originUrlId,
+        `state`,
+        `create_time` AS createTime,
+        `update_time` AS updateTime,
+        `version`
+    </sql>
+
+    <sql id="condition">
+        <if test="beginTime != null">
+            AND create_time &gt;= #{beginTime}
+        </if>
+        <if test="endTime != null">
+            AND create_time &lt; #{endTime}
+        </if>
+    </sql>
+
+    <select id="get" resultType="io.github.qyvlik.siuone.modules.url.entity.UrlShort">
+        SELECT
+        <include refid="columns"/>
+        FROM tb_url_short
+        WHERE `id` = #{id}
+    </select>
+
+    <select id="getOriginUrlId" resultType="Long">
+        SELECT
+        `origin_url_id` AS originUrlId
+        FROM tb_url_short
+        WHERE `id` = #{id}
+    </select>
+
+    <select id="findList" resultType="io.github.qyvlik.siuone.modules.url.entity.UrlShort">
+        SELECT
+        <include refid="columns"/>
+        FROM tb_url_short
+        <where>
+            <include refid="condition"/>
+        </where>
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id"
+            parameterType="io.github.qyvlik.siuone.modules.url.entity.UrlShort">
+        INSERT INTO tb_url_short (
+        `id`,
+        `short_url`,
+        `origin_url_id`,
+        `state`,
+        `create_time`,
+        `update_time`,
+        `version`
+        )
+        VALUE (
+        #{id},
+        #{shortUrl},
+        #{originUrlId},
+        #{state},
+        #{createTime},
+        #{updateTime},
+        #{version}
+        )
+    </insert>
+
+    <update id="update"
+            parameterType="io.github.qyvlik.siuone.modules.url.entity.UrlShort">
+        UPDATE tb_url_short
+        <set>
+            <if test="originUrlId != null">
+                `origin_url_id` = #{originUrlId},
+            </if>
+            <if test="updateTime != null">
+                `update_time` = #{updateTime},
+            </if>
+            <if test="version != null">
+                `version` = #{version}
+            </if>
+        </set>
+        WHERE id = #{id} AND `version` = #{version}
+    </update>
+
+</mapper>

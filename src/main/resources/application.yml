@@ -1,0 +1,10 @@
+
+server:
+  port: 8222
+
+spring:
+  profiles:
+    active: dev,statisticsByJVM
+
+mybatis:
+  mapper-locations: classpath:/mapping/**/*.xml

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.qyvlik.siuone.modules.gen.dao.GenIdMapping">
+
+    <sql id="columns">
+        `id`,
+        `segment_begin` AS segmentBegin,
+        `segment_size` AS segmentSize,
+        `machine_id` AS machineId,
+        `state`,
+        `create_time` AS createTime,
+        `update_time` AS updateTime,
+        `version`
+    </sql>
+
+    <sql id="condition">
+        <if test="state != null">
+            AND state = #{state}
+        </if>
+        <if test="beginTime != null">
+            AND create_time &gt;= #{beginTime}
+        </if>
+        <if test="endTime != null">
+            AND create_time &lt; #{endTime}
+        </if>
+    </sql>
+
+    <select id="get" resultType="io.github.qyvlik.siuone.modules.gen.entity.GenId">
+        SELECT
+        <include refid="columns"/>
+        FROM tb_gen_id
+        WHERE `id` = #{id}
+    </select>
+
+    <select id="findList" resultType="io.github.qyvlik.siuone.modules.gen.entity.GenId">
+        SELECT
+        <include refid="columns"/>
+        FROM tb_gen_id
+        <where>
+            <include refid="condition"/>
+        </where>
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id"
+            parameterType="io.github.qyvlik.siuone.modules.gen.entity.GenId">
+        INSERT INTO tb_gen_id (
+        `id`,
+        `segment_begin`,
+        `segment_size`,
+        `machine_id`,
+        `state`,
+        `create_time`,
+        `update_time`,
+        `version`
+        )
+        VALUE (
+        #{id},
+        #{segmentBegin},
+        #{segmentSize},
+        #{machineId},
+        #{state},
+        #{createTime},
+        #{updateTime},
+        #{version}
+        )
+    </insert>
+
+    <update id="update"
+            parameterType="io.github.qyvlik.siuone.modules.gen.entity.GenId">
+        UPDATE tb_gen_id
+        <set>
+            <if test="machineId != null">
+                `machine_id` = #{machineId},
+            </if>
+            <if test="state != null">
+                `state` = #{state},
+            </if>
+            <if test="updateTime != null">
+                `update_time` = #{updateTime},
+            </if>
+            <if test="version != null">
+                `version` = #{version} + 1
+            </if>
+        </set>
+        WHERE id = #{id} AND `version` = #{version}
+    </update>
+
+</mapper>

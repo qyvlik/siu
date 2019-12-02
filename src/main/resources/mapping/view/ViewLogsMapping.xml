@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.qyvlik.siuone.modules.view.dao.ViewLogsMapping">
+
+    <sql id="columns">
+        `id`,
+        `short_url_id` AS shortUrlId,
+        `origin_url_id` AS originUrlId,
+        `referrer_url_id` AS referrerUrlId,
+        `user_agent_id` AS userAgentId,
+        INET6_NTOA(`ip_address`) AS ipAddress,
+        `create_time` AS createTime
+    </sql>
+
+    <sql id="condition">
+        <if test="shortUrlId != null">
+            AND `short_url_id` = #{shortUrlId}
+        </if>
+        <if test="beginTime != null">
+            AND create_time &gt;= #{beginTime}
+        </if>
+        <if test="endTime != null">
+            AND create_time &lt; #{endTime}
+        </if>
+    </sql>
+
+    <select id="get" resultType="io.github.qyvlik.siuone.modules.view.entity.ViewLogs">
+        SELECT
+        <include refid="columns"/>
+        FROM tb_view_logs
+        WHERE `id` = #{id}
+    </select>
+
+    <select id="findList" resultType="io.github.qyvlik.siuone.modules.view.entity.ViewLogs">
+        SELECT
+        <include refid="columns"/>
+        FROM tb_view_logs
+        <where>
+            <include refid="condition"/>
+        </where>
+    </select>
+
+    <select id="count" resultType="Long">
+        SELECT COUNT(1)
+        FROM tb_view_logs
+        <where>
+            <include refid="condition"/>
+        </where>
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id"
+            parameterType="io.github.qyvlik.siuone.modules.view.entity.ViewLogs">
+        INSERT INTO tb_view_logs (
+        `id`,
+        `short_url_id`,
+        `origin_url_id`,
+        `referrer_url_id`,
+        `user_agent_id`,
+        `ip_address`,
+        `create_time`
+        )
+        VALUE (
+        #{id},
+        #{shortUrlId},
+        #{originUrlId},
+        #{referrerUrlId},
+        #{userAgentId},
+        INET6_ATON(#{ipAddress}),
+        #{createTime}
+        )
+    </insert>
+
+</mapper>
