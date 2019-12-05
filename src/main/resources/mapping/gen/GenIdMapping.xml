@@ -32,6 +32,14 @@
         WHERE `id` = #{id}
     </select>
 
+    <select id="count" resultType="Long">
+        SELECT COUNT(1)
+        FROM tb_gen_id
+        <where>
+            <include refid="condition"/>
+        </where>
+    </select>
+
     <select id="findList" resultType="io.github.qyvlik.siuone.modules.gen.entity.GenId">
         SELECT
         <include refid="columns"/>

@@ -9,6 +9,8 @@ public interface GenIdService {
 
     List<GenId> getPendingList(Integer count);
 
+    Long available();
+
     List<GenId> alloc(Long machineId, Integer maxCount);
 
     GenId randomAlloc(Long machineId);

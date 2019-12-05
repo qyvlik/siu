@@ -73,6 +73,14 @@ public class GenIdServiceImpl extends CrudService<GenId, GenIdMapping> implement
         return this.findList(query, "create_time ASC", count);
     }
 
+    @Override
+    public Long available() {
+        GenId query = new GenId();
+        query.setState(GenId.STATE_PENDING);
+        Long count = this.count(query);
+        return count == null ? 0L : count;
+    }
+
     @Transactional(readOnly = false)
     @Override
     public List<GenId> alloc(Long machineId, Integer maxCount) {
