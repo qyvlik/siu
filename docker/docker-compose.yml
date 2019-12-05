@@ -1,6 +1,12 @@
 version: '2'
 
 services:
+  openresty:
+    image: openresty/openresty
+    ports:
+      - "8222:8222"
+      - "3000:3000"
+
   siu:
     image: qyvlik/siu:latest
     environment:
@@ -8,8 +14,19 @@ services:
       - SPRING_DATASOURCE_URL=${MYSQL_URL}
       - SPRING_DATASOURCE_USERNAME=${MYSQL_USERNAME}
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD}
-    ports:
-      - "8222:8222"
 
   redis:
-    image: redis:4
+    image: redis:5
+
+  grafana:
+    image: grafana/grafana:6.3.0
+    volumes:
+      - grafana_volumes:/var/lib/grafana
+    environment:
+      #- GF_SERVER_DOMAIN=${GRAFANA_SERVER_DOMAIN}
+      - GF_SERVER_ROOT_URL=grafana
+      - GF_SERVER_STATIC_ROOT_PATH=public
+      - GF_SECURITY_ALLOW_EMBEDDING=true
+
+volumes:
+  grafana_volumes:
