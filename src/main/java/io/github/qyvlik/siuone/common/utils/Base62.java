@@ -9,6 +9,7 @@ public class Base62 {
 
     /**
      * 将 base62 转换为 整数
+     *
      * @param str base62
      * @return 整数
      */
@@ -19,6 +20,7 @@ public class Base62 {
 
     /**
      * 将整数转换为 base62
+     *
      * @param i 整数
      * @return base62
      */
@@ -47,12 +49,9 @@ public class Base62 {
         return n * (long) Math.pow(BASE, pow);
     }
 
-
-
     private static long fromBase10(long i, final StringBuilder sb) {
         int rem = (int) (i % BASE);
         sb.append(BASE_62_CHAR.charAt(rem));
         return i / BASE;
     }
-
 }

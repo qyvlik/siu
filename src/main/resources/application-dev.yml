@@ -29,6 +29,10 @@ siu:
     alloc-cron: 0 0 0/1 * * ?
     segment-size: 128
 
+snowflake:
+  data-center-id: 0
+  machine-id: 0
+
 logging:
   level:
     nl.basjes.parse.useragent: ERROR

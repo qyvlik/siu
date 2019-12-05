@@ -11,7 +11,7 @@
  Target Server Version : 50637
  File Encoding         : utf-8
 
- Date: 12/02/2019 17:14:50 PM
+ Date: 12/05/2019 15:22:11 PM
 */
 
 SET NAMES utf8mb4;
@@ -33,7 +33,7 @@ CREATE TABLE `tb_gen_id` (
   PRIMARY KEY (`id`),
   KEY `state_time` (`state`,`create_time`),
   KEY `segmentbegin` (`segment_begin`)
-) ENGINE=InnoDB AUTO_INCREMENT=149 DEFAULT CHARSET=utf8mb4 COMMENT='id 派发器';
+) ENGINE=InnoDB AUTO_INCREMENT=277 DEFAULT CHARSET=utf8mb4 COMMENT='id 派发器';
 
 -- ----------------------------
 --  Table structure for `tb_url_block`
@@ -73,7 +73,8 @@ CREATE TABLE `tb_url_short` (
   `update_time` bigint(20) NOT NULL COMMENT '更新时间',
   `version` int(11) NOT NULL COMMENT '乐观锁',
   PRIMARY KEY (`id`),
-  KEY `state_time` (`state`,`create_time`)
+  KEY `state_time` (`state`,`create_time`),
+  KEY `originurlid` (`origin_url_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='短链接';
 
 -- ----------------------------

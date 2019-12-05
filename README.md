@@ -15,6 +15,3 @@
 [浏览器Http请求头部比较](https://blog.csdn.net/kjb000/article/details/7774588)
 
 [用浏览器访问网址时，请求头(request header)是根据什么生成的?](https://www.zhihu.com/question/34603729)
-
-todo:
-定时生产 gen-id

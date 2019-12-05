@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+  siu:
+    image: qyvlik/siu:latest
+    environment:
+      - SPRING_REDIS_DATABASE=redis
+      - SPRING_DATASOURCE_URL=${MYSQL_URL}
+      - SPRING_DATASOURCE_USERNAME=${MYSQL_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+      - "8222:8222"
+
+  redis:
+    image: redis:4
