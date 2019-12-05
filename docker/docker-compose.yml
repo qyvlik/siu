@@ -8,16 +8,17 @@ services:
       - ./openresty/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
+      - ${NGINX_LOG_VOLUME}:/var/log/nginx
     environment:
       - GRAFANA_TOKEN=${GRAFANA_TOKEN}
     ports:
       - "8222:8222"
-      - "3000:3000"
+      - "8000:8000"     # grafana-dashboard
 
   siu:
     image: qyvlik/siu:latest
     environment:
-      - SPRING_REDIS_DATABASE=redis
+      - SPRING_REDIS_HOST=redis
       - SPRING_DATASOURCE_URL=${MYSQL_URL}
       - SPRING_DATASOURCE_USERNAME=${MYSQL_USERNAME}
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD}
