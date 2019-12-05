@@ -2,7 +2,15 @@ version: '2'
 
 services:
   openresty:
-    image: openresty/openresty
+    image: openresty/openresty:alpine
+    volumes:
+      - ./openresty/conf.d/:/etc/nginx/conf.d/
+      - ./openresty/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - "${NGINX_LOG_VOLUME}:/var/log/nginx"
+    environment:
+      - GRAFANA_TOKEN=${GRAFANA_TOKEN}
     ports:
       - "8222:8222"
       - "3000:3000"
