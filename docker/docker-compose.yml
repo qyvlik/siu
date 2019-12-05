@@ -8,7 +8,6 @@ services:
       - ./openresty/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
-      - "${NGINX_LOG_VOLUME}:/var/log/nginx"
     environment:
       - GRAFANA_TOKEN=${GRAFANA_TOKEN}
     ports:
