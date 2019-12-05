@@ -31,8 +31,8 @@ services:
     volumes:
       - grafana_volumes:/var/lib/grafana
     environment:
-      #- GF_SERVER_DOMAIN=${GRAFANA_SERVER_DOMAIN}
-      - GF_SERVER_ROOT_URL=grafana
+      - GF_SERVER_DOMAIN=${GRAFANA_SERVER_DOMAIN}
+      - GF_SERVER_ROOT_URL=${GF_SERVER_ROOT_URL}
       - GF_SERVER_STATIC_ROOT_PATH=public
       - GF_SECURITY_ALLOW_EMBEDDING=true
 
